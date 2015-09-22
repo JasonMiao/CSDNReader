@@ -1,4 +1,4 @@
-package com.jason.csdnreader.activity;
+package com.jason.csdnreader.ui.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
