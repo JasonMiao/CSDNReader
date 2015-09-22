@@ -135,6 +135,7 @@ public class MainActivity extends Activity implements OnClickListener {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (KeyEvent.KEYCODE_BACK == keyCode) {
             // TODO: 2015/9/21
+            finish();
             return true;
         } else {
             return super.onKeyDown(keyCode, event);
