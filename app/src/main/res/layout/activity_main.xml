@@ -5,21 +5,22 @@
 
     <include
         android:id="@+id/id_topbar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         layout="@layout/top" />
-    <include
+
+    <include
         android:id="@+id/id_bottombar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         layout="@layout/bottom" />
 
     <FrameLayout
         android:id="@+id/id_content"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@id/id_bottombar"
         android:layout_below="@id/id_topbar" />
 
