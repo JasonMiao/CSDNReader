@@ -10,9 +10,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bigkoo.alertview.AlertView;
+import com.bigkoo.alertview.OnItemClickListener;
 import com.jason.csdnreader.R;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends Activity implements OnClickListener {
     private LinearLayout mTabNews;
@@ -134,7 +134,16 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (KeyEvent.KEYCODE_BACK == keyCode) {
-            // TODO: 2015/9/21
+            new AlertView("退出CSDNReader？", null, "取消", new String[]{"退出"}, null, MainActivity.this, AlertView.Style.Alert,
+                    new OnItemClickListener() {
+                        @Override
+                        public void onItemClick(Object o, int position) {
+                            if (position == 0) { // 退出
+                                MainActivity.this.finish();
+                            }
+                        }
+                    }
+            ).show();
             return true;
         } else {
             return super.onKeyDown(keyCode, event);
