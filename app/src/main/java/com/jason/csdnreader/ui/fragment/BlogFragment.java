@@ -13,8 +13,17 @@ import com.jason.csdnreader.R;
  * Created by zzmiao on 2015/9/23.
  */
 public class BlogFragment extends Fragment {
+    private String mTopbarTitle = "博客广场";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_blog, container, false);
+    }
+
+    public String getmTopbarTitle() {
+        return mTopbarTitle;
+    }
+
+    public void setmTopbarTitle(String mTopbarTitle) {
+        this.mTopbarTitle = mTopbarTitle;
     }
 }

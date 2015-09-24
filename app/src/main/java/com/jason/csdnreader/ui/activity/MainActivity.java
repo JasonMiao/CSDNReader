@@ -52,10 +52,11 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
 
     private TextView mTextViewTopTitle;
 
-    private Fragment mFragmentNews;
-    private Fragment mFragmentBlog;
-    private Fragment mFragmentFocus;
-    private Fragment mFragmentProfile;
+    private NewsFragment mFragmentNews;
+    private BlogFragment mFragmentBlog;
+    private FocusFragment mFragmentFocus;
+    private ProfileFragment mFragmentProfile;
+    private int currentFragment = 0; // 表示当前Fragment, 0-News/1-Blog/2-Focus/3-Profile
 
     private GroupAdapter groupAdapter;
     private ArrayList<String> groups = new ArrayList<String>();
@@ -87,13 +88,14 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
                 } else {
                     transaction.show(mFragmentNews);
                 }
+                currentFragment = 0;
                 // 设置底部Tab图标和文字状态
                 mImgNews.setImageResource(R.drawable.tabbar_home_selected);
                 mTextViewNews.setTextColor(getResources().getColor(R.color.tabbar_text_selected));
                 // 设置顶部分组信息
-                mTextViewTopTitle.setText("资讯");
-                groups.clear();
+                setTopTitleText(mFragmentNews.getmTopbarTitle());
                 mTextViewTopTitle.setClickable(true);
+                groups.clear();
                 groups.add("业界");
                 groups.add("移动开发");
                 groups.add("云计算");
@@ -108,13 +110,14 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
                 } else {
                     transaction.show(mFragmentBlog);
                 }
+                currentFragment = 1;
                 // 设置底部Tab图标和文字状态
                 mImgBlog.setImageResource(R.drawable.tabbar_discover_selected);
                 mTextViewBlog.setTextColor(getResources().getColor(R.color.tabbar_text_selected));
                 // 设置顶部分组信息
-                mTextViewTopTitle.setText("博客广场");
-                groups.clear();
+                setTopTitleText(mFragmentBlog.getmTopbarTitle());
                 mTextViewTopTitle.setClickable(true);
+                groups.clear();
                 groups.add("移动开发");
                 groups.add("Web前端");
                 groups.add("架构设计");
@@ -134,6 +137,7 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
                 } else {
                     transaction.show(mFragmentFocus);
                 }
+                currentFragment = 2;
                 // 设置底部Tab图标和文字状态
                 mImgFocus.setImageResource(R.drawable.tabbar_message_center_selected);
                 mTextViewFocus.setTextColor(getResources().getColor(R.color.tabbar_text_selected));
@@ -149,6 +153,7 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
                 } else {
                     transaction.show(mFragmentProfile);
                 }
+                currentFragment = 3;
                 // 设置底部Tab图标和文字状态
                 mImgProfile.setImageResource(R.drawable.tabbar_profile_selected);
                 mTextViewProfile.setTextColor(getResources().getColor(R.color.tabbar_text_selected));
@@ -227,7 +232,7 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
     }
 
     private void showPopwindow(View parent) {
-        DisplayMetrics  dm = new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screenWidth = dm.widthPixels;
         int screenHeight = dm.heightPixels;
@@ -253,10 +258,30 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mTextViewTopTitle.setText(groups.get(position));
+        String title = groups.get(position);
+        setTopTitleText(title);
+        switch (currentFragment){
+            case 0:
+                mFragmentNews.setmTopbarTitle(title);
+                break;
+            case 1:
+                mFragmentBlog.setmTopbarTitle(title);
+                break;
+            case 2:
+            case 3:
+                break;
+        }
         if (mPopupWindow != null) {
             mPopupWindow.dismiss();
         }
+    }
+
+    public int getCurrentFragment() {
+        return currentFragment;
+    }
+
+    public void setTopTitleText(String str){
+        mTextViewTopTitle.setText(str);
     }
 
     /**
@@ -277,7 +302,7 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (KeyEvent.KEYCODE_BACK == keyCode) {
-            new AlertView("退出CSDNReader？", null, "取消", new String[]{"退出"}, null, MainActivity.this, AlertView.Style.Alert,
+            new AlertView("退出CSDN阅读器？", null, "取消", new String[]{"退出"}, null, MainActivity.this, AlertView.Style.Alert,
                     new OnItemClickListener() {
                         @Override
                         public void onItemClick(Object o, int position) {
