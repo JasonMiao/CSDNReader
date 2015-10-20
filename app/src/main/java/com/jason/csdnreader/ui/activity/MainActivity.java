@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -250,7 +251,7 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
         // 设置允许在外点击消失
         mPopupWindow.setOutsideTouchable(true);
         // 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
-        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap)null));
         // showAsDropDown的偏移量参考的是anchor(依靠)控件底部左边(bottom-left corner of the anchor view)
         mPopupWindow.showAsDropDown(parent, mTextViewTopTitle.getWidth() / 2 - mPopupWindow.getWidth() / 2, 0);
         listView.setOnItemClickListener(this);
