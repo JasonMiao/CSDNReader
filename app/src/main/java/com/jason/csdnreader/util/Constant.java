@@ -9,10 +9,71 @@ public class Constant {
      * 资讯类型
      */
     public class NEWS_TYPE {
-        public static final int YEJIE = 1; // 业界
-        public static final int YIDONG = 2; // 移动
-        public static final int YUNJISUAN = 3; // 云计算
-        public static final int YANFA = 4; // 软件研发
-        public static final int ZAZHI = 5; // 程序员
+        /**
+         * 业界
+         */
+        public static final int NEWS = 1;
+        /**
+         * 移动
+         */
+        public static final int MOBILE = 2;
+        /**
+         * 云计算
+         */
+        public static final int CLOUD = 3;
+        /**
+         * 软件研发
+         */
+        public static final int DEVELOP = 4;
+        /**
+         * 程序员
+         */
+        public static final int PROGRAMMER = 5;
+    }
+
+    /**
+     * 博客类型
+     */
+    public class BLOG_TYPE {
+        /**
+         * 移动开发
+         */
+        public static final int MOBILE = 1;
+        /**
+         * Web前端
+         */
+        public static final int WEB = 2;
+        /**
+         * 架构设计
+         */
+        public static final int ENTERPRISE = 3;
+        /**
+         * 编程语言
+         */
+        public static final int CODE = 4;
+        /**
+         * 互联网
+         */
+        public static final int WWW = 5;
+        /**
+         * 数据库
+         */
+        public static final int DATABASE = 6;
+        /**
+         * 系统运维
+         */
+        public static final int SYSTEM = 7;
+        /**
+         * 云计算
+         */
+        public static final int CLOUD = 8;
+        /**
+         * 研发管理
+         */
+        public static final int SOFTWARE = 9;
+        /**
+         * 综合
+         */
+        public static final int OTHER = 10;
     }
 }

@@ -32,6 +32,8 @@ import com.jason.csdnreader.ui.fragment.BlogFragment;
 import com.jason.csdnreader.ui.fragment.FocusFragment;
 import com.jason.csdnreader.ui.fragment.NewsFragment;
 import com.jason.csdnreader.ui.fragment.ProfileFragment;
+import com.jason.csdnreader.util.Constant;
+import com.jason.csdnreader.util.URLUtil;
 
 import java.util.ArrayList;
 
