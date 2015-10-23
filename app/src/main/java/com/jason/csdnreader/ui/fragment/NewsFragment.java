@@ -60,7 +60,7 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
     private void initData() {
         newsItems = new ArrayList<NewsItem>();
         for (int i = 0; i < 8; i++) {
-            newsItems.add(new NewsItem("http://img.ptcms.csdn.net/article/201510/21/562709dbdcca0_thumb.jpg", "标题" + i, "内容简介" + i, "2015-10-23 12:2" + i));
+            newsItems.add(new NewsItem("http://img.ptcms.csdn.net/article/201510/21/562709dbdcca0_thumb.jpg", "标题" + i, "内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介" + i, "2015-10-23 12:2" + i));
         }
     }
 
@@ -146,7 +146,9 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
      * @param news_type
      */
     private void setContent(int news_type) {
-
+        newsItems.clear();
+        mAdapter.clear();
+        mRefreshLayout.beginRefreshing();
     }
 
     /**
@@ -170,6 +172,12 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
 
             @Override
             protected void onPostExecute(Void aVoid) {
+                if (Constant.NEWS_TYPE.MOBILE == news_type){
+                    for (int i = 0; i < 8; i++) {
+                        newsItems.add(new NewsItem("http://img.ptcms.csdn.net/article/201510/22/56288561babc2_thumb.jpg", "标题" + i, "内容简介" + i, "2015-10-23 12:2" + i));
+                    }
+                    mAdapter.addNewDatas(newsItems);
+                }
                 mRefreshLayout.endRefreshing();
             }
         }.execute();
