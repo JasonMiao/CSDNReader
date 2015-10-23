@@ -10,6 +10,7 @@ import com.jason.csdnreader.R;
 
 /**
  * 博客Fragment
+ *
  * Created by zzmiao on 2015/9/23.
  */
 public class BlogFragment extends Fragment {

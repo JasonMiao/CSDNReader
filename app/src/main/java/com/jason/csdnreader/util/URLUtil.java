@@ -1,5 +1,7 @@
 package com.jason.csdnreader.util;
 
+import com.jason.csdnreader.app.MyApplication;
+
 /**
  * 解析地址工具类
  * Created by zzmiao on 2015/10/20.

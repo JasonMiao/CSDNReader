@@ -10,6 +10,7 @@ import com.jason.csdnreader.R;
 
 /**
  * 关注Fragment
+ *
  * Created by zzmiao on 2015/9/23.
  */
 public class FocusFragment extends Fragment {

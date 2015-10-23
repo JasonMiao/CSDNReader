@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">CSDNReader</string>
+
+    <!--Titlebar Popupwindow-->
+    <string name="n_news">业界</string>
+    <string name="n_mobile">移动</string>
+    <string name="n_cloud">云计算</string>
+    <string name="n_develop">软件研发</string>
+    <string name="n_programmer">程序员</string>
+
+    <string name="b_mobile">移动开发</string>
+    <string name="b_web">Web前端</string>
+    <string name="b_enterprise">架构设计</string>
+    <string name="b_code">编程语言</string>
+    <string name="b_www">互联网</string>
+    <string name="b_database">数据库</string>
+    <string name="b_system">系统运维</string>
+    <string name="b_cloud">云计算</string>
+    <string name="b_software">研发管理</string>
+    <string name="b_other">综合</string>
+
 </resources>

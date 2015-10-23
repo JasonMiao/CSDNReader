@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<cn.bingoogolapple.refreshlayout.BGARefreshLayout
+    android:id="@+id/rl_frag_news"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_frag_news"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="This is news fragment!"
-        android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="5dp"
+        android:scrollbars="none"/>
 
-</LinearLayout>
+</cn.bingoogolapple.refreshlayout.BGARefreshLayout>

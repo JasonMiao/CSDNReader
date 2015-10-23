@@ -8,6 +8,9 @@ import android.widget.Button;
 
 import com.jason.csdnreader.R;
 
+/**
+ * 应用初始化页面
+ */
 public class SplashActivity extends Activity implements View.OnClickListener {
 
     @Override

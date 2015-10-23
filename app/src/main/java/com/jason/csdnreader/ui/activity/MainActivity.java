@@ -99,11 +99,11 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
                 setTopTitleText(mFragmentNews.getmTopbarTitle());
                 mTextViewTopTitle.setClickable(true);
                 groups.clear();
-                groups.add("业界");
-                groups.add("移动开发");
-                groups.add("云计算");
-                groups.add("软件研发");
-                groups.add("程序员");
+                groups.add(getString(R.string.n_news));
+                groups.add(getString(R.string.n_mobile));
+                groups.add(getString(R.string.n_cloud));
+                groups.add(getString(R.string.n_develop));
+                groups.add(getString(R.string.n_programmer));
                 break;
             case 1:
                 // 显示对应的fragment
@@ -121,16 +121,16 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
                 setTopTitleText(mFragmentBlog.getmTopbarTitle());
                 mTextViewTopTitle.setClickable(true);
                 groups.clear();
-                groups.add("移动开发");
-                groups.add("Web前端");
-                groups.add("架构设计");
-                groups.add("编程语言");
-                groups.add("互联网");
-                groups.add("数据库");
-                groups.add("系统运维");
-                groups.add("云计算");
-                groups.add("研发管理");
-                groups.add("综合");
+                groups.add(getString(R.string.b_mobile));
+                groups.add(getString(R.string.b_web));
+                groups.add(getString(R.string.b_enterprise));
+                groups.add(getString(R.string.b_code));
+                groups.add(getString(R.string.b_www));
+                groups.add(getString(R.string.b_database));
+                groups.add(getString(R.string.b_system));
+                groups.add(getString(R.string.b_cloud));
+                groups.add(getString(R.string.b_software));
+                groups.add(getString(R.string.b_other));
                 break;
             case 2:
                 // 显示对应的fragment
