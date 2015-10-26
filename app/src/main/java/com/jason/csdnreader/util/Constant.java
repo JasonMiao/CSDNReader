@@ -76,4 +76,15 @@ public class Constant {
          */
         public static final int OTHER = 10;
     }
+
+    /**
+     * 返回结果码定义
+     */
+    public class ResultCode{
+        public static final int ERROR = 1;
+        public static final int NO_DATA = 2;
+        public static final int REFRESH = 3;
+        public static final int LOAD = 4;
+        public static final int FIRST = 5;
+    }
 }

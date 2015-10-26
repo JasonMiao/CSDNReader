@@ -1,5 +1,7 @@
 package com.jason.csdnreader.bean;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
@@ -18,18 +20,36 @@ public class NewsItem implements Serializable{
      * 资讯内容简介
      */
     private String intro;
-
-    public NewsItem(String pic, String title, String intro, String date) {
-        this.pic = pic;
-        this.title = title;
-        this.intro = intro;
-        this.date = date;
-    }
-
     /**
      * 资讯发布时间
      */
     private String date;
+    /**
+     * 阅读次数
+     */
+    private String readtimes;
+    /**
+     * 评论数
+
+     */
+    private String comments;
+    /**
+     * 文章地址
+     */
+    private String link;
+
+    public NewsItem(){
+
+    }
+
+    public NewsItem(String pic, String title, String intro, String date, String readtimes, String comments) {
+        this.pic = pic;
+        this.title = title;
+        this.intro = intro;
+        this.readtimes = readtimes;
+        this.comments = comments;
+        this.date = date;
+    }
 
     public String getPic() {
         return pic;
@@ -61,5 +81,28 @@ public class NewsItem implements Serializable{
 
     public void setDate(String date) {
         this.date = date;
+    }
+    public String getComments() {
+        return "评论(" + comments + ")";
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public String getReadtimes() {
+        return "阅读(" + readtimes + ")";
+    }
+
+    public void setReadtimes(String readtimes) {
+        this.readtimes = readtimes;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

@@ -16,13 +16,13 @@ import cn.bingoogolapple.androidcommon.adapter.BGAViewHolderHelper;
  */
 public class NewsListAdapter extends BGARecyclerViewAdapter<NewsItem> {
 
-    public NewsListAdapter(RecyclerView recyclerView){
+    public NewsListAdapter(RecyclerView recyclerView) {
         super(recyclerView, R.layout.item_news);
     }
 
     @Override
     protected void fillData(BGAViewHolderHelper viewHolderHelper, int position, NewsItem model) {
-        Picasso.with(MyApplication.getMyApplication()).load(model.getPic()).into((ImageView) viewHolderHelper.getView(R.id.iv_news_pic));
-        viewHolderHelper.setText(R.id.tv_news_title, model.getTitle()).setText(R.id.tv_news_intro, model.getIntro()).setText(R.id.tv_news_date, model.getDate());
+        Picasso.with(MyApplication.getMyApplication()).load(model.getPic()).placeholder(R.drawable.default_avatar).into((ImageView) viewHolderHelper.getView(R.id.iv_news_pic));
+        viewHolderHelper.setText(R.id.tv_news_title, model.getTitle()).setText(R.id.tv_news_intro, model.getIntro()).setText(R.id.tv_news_date, model.getDate()).setText(R.id.tv_news_readtimes, model.getReadtimes()).setText(R.id.tv_news_comments, model.getComments());
     }
 }
