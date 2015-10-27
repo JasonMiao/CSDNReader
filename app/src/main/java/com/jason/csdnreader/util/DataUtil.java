@@ -1,5 +1,6 @@
 package com.jason.csdnreader.util;
 
+import com.jason.csdnreader.bean.BlogItem;
 import com.jason.csdnreader.bean.NewsItem;
 
 import org.jsoup.Jsoup;
@@ -50,6 +51,11 @@ public class DataUtil {
         return "";
     }
 
+    /**
+     * 获取资讯列表
+     * @param url
+     * @return
+     */
     public static List<NewsItem> getNewsList(String url) {
         List<NewsItem> list = new ArrayList<>();
         Document doc = loadDocByUrl(url);
@@ -81,4 +87,41 @@ public class DataUtil {
         }
         return list;
     }
+
+    //TODO 解析资讯
+
+    /**
+     * 获取博客列表
+     * @param url
+     * @return
+     */
+    public static List<BlogItem> getBlogList(String url) {
+        List<BlogItem> list = new ArrayList<>();
+        Document doc = loadDocByUrl(url);
+        Elements blogList = doc.getElementsByClass("blog_list");
+
+        for (Element blogItem : blogList){
+            BlogItem blog = new BlogItem();
+            String link = blogItem.select("a").attr("href");
+            String title = blogItem.select("h1").text();
+            String pic = blogItem.select("dt").get(0).select("img").get(0).attr("src");
+            String intro = blogItem.select("dd").text();
+            String date = blogItem.getElementsByClass("time").get(0).text();
+            String readtimes = blogItem.getElementsByClass("view").get(0).text();
+            String comments = blogItem.getElementsByClass("comment").get(0).text();
+            blog.setLink(link);
+            blog.setTitle(title);
+            blog.setPic(pic);
+            blog.setIntro(intro);
+            blog.setDate(date);
+            blog.setReadtimes(readtimes);
+            blog.setComments(comments);
+            list.add(blog);
+        }
+        return list;
+    }
+
+    //TODO 解析博客内容
+
+    //TODO 解析专栏
 }

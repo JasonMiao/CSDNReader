@@ -2,4 +2,5 @@
 <resources>
     <color name="tabbar_text_default">#808080</color>
     <color name="tabbar_text_selected">#ff8200</color>
+    <color name="black">#000000</color>
 </resources>

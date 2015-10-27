@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/id_topbar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="match_parent"
     android:background="#FFFAF0"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/id_topbar_title"
@@ -15,6 +17,6 @@
         android:text="资讯"
         android:textColor="#666"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
 </LinearLayout>

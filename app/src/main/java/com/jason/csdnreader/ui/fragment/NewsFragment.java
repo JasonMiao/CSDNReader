@@ -18,6 +18,7 @@ import com.jason.csdnreader.adapter.NewsListAdapter;
 import com.jason.csdnreader.app.MyApplication;
 import com.jason.csdnreader.bean.NewsItem;
 import com.jason.csdnreader.bean.Page;
+import com.jason.csdnreader.ui.view.DividerItemDecoration;
 import com.jason.csdnreader.util.Constant;
 import com.jason.csdnreader.util.DataUtil;
 import com.jason.csdnreader.util.NetworkImageHolderView;
@@ -40,7 +41,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefreshLayoutDelegate, BGAOnRVItemClickListener {
     private static final String TAG = NewsFragment.class.getSimpleName();
     private String mTopbarTitle = "资讯";
-    private int news_type = 1; // 资讯类型默认为业界
+    private int news_type = Constant.NEWS_TYPE.NEWS; // 资讯类型默认为业界
     private Page page;
     private View view;
     private View headerView;
@@ -81,6 +82,7 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
         mAdapter = new NewsListAdapter(mRecyclerView);
         mAdapter.setOnRVItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
     }
 
     /**
@@ -154,7 +156,11 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
      * @param
      */
     private void setContent() {
+        // 切换类型后适配器要清空
         mAdapter.clear();
+        // 上来加载更多的分页要重置
+        page.setPageStart();
+        // 切换后自动执行下拉刷新加载数据
         mRefreshLayout.beginRefreshing();
     }
 
@@ -214,7 +220,7 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-        Toast.makeText(getActivity(), mAdapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), mAdapter.getItem(position).getLink(), Toast.LENGTH_SHORT).show();
     }
 
     // 通过代码方式控制进入正在刷新状态。应用场景：某些应用在activity的onStart方法中调用，自动进入正在刷新状态获取最新数据
