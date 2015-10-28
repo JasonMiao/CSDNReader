@@ -19,13 +19,9 @@ import org.jsoup.Jsoup;
  */
 public class ProfileFragment extends Fragment {
     private View view;
-    private ImageView ivShow;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        ivShow = (ImageView) view.findViewById(R.id.iv_show);
-        // 测试开源图片加载缓存库
-        Picasso.with(getActivity().getApplicationContext()).load("http://i.imgur.com/DvpvklR.png").resize(500, 500).centerCrop().into(ivShow);
         return view;
     }
 
