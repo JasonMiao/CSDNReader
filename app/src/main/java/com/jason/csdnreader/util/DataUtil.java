@@ -2,6 +2,7 @@ package com.jason.csdnreader.util;
 
 import com.jason.csdnreader.bean.BlogItem;
 import com.jason.csdnreader.bean.NewsItem;
+import com.jason.csdnreader.bean.Profile;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -125,4 +126,15 @@ public class DataUtil {
     //TODO 解析博客内容
 
     //TODO 解析专栏
+
+    /**
+     * 获取个人资料
+     * @param str
+     * @return
+     */
+    public static Profile getProfile(String str){
+        Profile profile = new Profile();
+
+        return profile;
+    }
 }

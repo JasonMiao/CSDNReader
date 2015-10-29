@@ -5,14 +5,14 @@
     <include
         android:id="@+id/id_topbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_alignParentTop="true"
         layout="@layout/top" />
 
     <include
         android:id="@+id/id_bottombar"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         layout="@layout/bottom" />
 
