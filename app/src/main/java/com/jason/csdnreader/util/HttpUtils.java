@@ -18,14 +18,15 @@ import org.apache.http.util.EntityUtils;
 
 /**
  * Http工具类 单例模式
- * 
+ *
+ * 貌似Android SDK API22开始砍掉了HttpClient！！！
  * @author zzmiao
  * 
  */
 public class HttpUtils {
-	private static final CookieStore cookieStore = new BasicCookieStore();
-	private static final CloseableHttpClient httpClient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
-	private static final HttpClientContext context = new HttpClientContext();
+	private static  CookieStore cookieStore = new BasicCookieStore();
+	private static  CloseableHttpClient httpClient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
+	private static  HttpClientContext context = new HttpClientContext();
 
 	private HttpUtils() {
 

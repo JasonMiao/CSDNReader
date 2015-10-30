@@ -7,6 +7,12 @@ import com.jason.csdnreader.app.MyApplication;
  * Created by zzmiao on 2015/10/20.
  */
 public class URLUtil {
+
+    /**
+     * 登录请求地址
+     */
+    public static  String LOGIN_URL = "https://passport.csdn.net/account/login";
+
     /**
      * 资讯地址工具类
      */

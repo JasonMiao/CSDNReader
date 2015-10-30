@@ -19,4 +19,9 @@
     <string name="b_software">研发管理</string>
     <string name="b_other">综合</string>
 
+    <string name="no_input_account">请输入账号</string>
+    <string name="no_input_password">请输入密码</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_failure">登录失败</string>
+    <string name="login_busy">登录频繁</string>
 </resources>

@@ -78,7 +78,7 @@ public class Constant {
     }
 
     /**
-     * 返回结果码定义
+     * 解析博文资讯信息返回结果码定义
      */
     public class ResultCode{
         public static final int ERROR = 1;
