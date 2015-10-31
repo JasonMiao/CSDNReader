@@ -2,6 +2,9 @@ package com.jason.csdnreader.app;
 
 import android.app.Application;
 
+import com.jason.csdnreader.util.HttpUtil;
+import com.loopj.android.http.PersistentCookieStore;
+
 import org.litepal.LitePalApplication;
 
 /**
@@ -24,6 +27,8 @@ public class MyApplication extends Application {
         myApplication = this;
         // 初始化数据库操作库
         LitePalApplication.initialize(this);
+        // 设置网络请求持久化保存cookie
+        HttpUtil.getClient().setCookieStore(new PersistentCookieStore(myApplication));
     }
 
     /**

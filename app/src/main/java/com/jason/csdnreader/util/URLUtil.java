@@ -1,7 +1,5 @@
 package com.jason.csdnreader.util;
 
-import com.jason.csdnreader.app.MyApplication;
-
 /**
  * 解析地址工具类
  * Created by zzmiao on 2015/10/20.
@@ -12,6 +10,10 @@ public class URLUtil {
      * 登录请求地址
      */
     public static  String LOGIN_URL = "https://passport.csdn.net/account/login";
+    /**
+     * 个人中心地址
+     */
+    public static String MYCSDN = "http://my.csdn.net/";
 
     /**
      * 资讯地址工具类

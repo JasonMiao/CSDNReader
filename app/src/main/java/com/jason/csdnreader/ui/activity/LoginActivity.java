@@ -1,6 +1,7 @@
 package com.jason.csdnreader.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jason.csdnreader.R;
+import com.jason.csdnreader.util.CommonUtil;
 import com.jason.csdnreader.util.LoginUtil;
 
 /**
@@ -40,25 +42,31 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_login) {
-//            String username = etUsername.getText().toString();
-//            String password = etPassword.getText().toString();
+//            String username = etUsername.getText().toString().trim();
+//            String password = etPassword.getText().toString().trim();
             String username = "bagecelia@163.com";
             String password = "mcmzz925424";
             if (TextUtils.isEmpty(username)) {
-                Toast.makeText(this, R.string.no_input_account, Toast.LENGTH_SHORT).show();
+                CommonUtil.showToast(this, getString(R.string.no_input_account));
                 return;
             }
             if (TextUtils.isEmpty(password)) {
-                Toast.makeText(this, R.string.no_input_password, Toast.LENGTH_SHORT).show();
+                CommonUtil.showToast(this, getString(R.string.no_input_password));
                 return;
             }
-            int result = LoginUtil.doLogin(username, password);
-            if (result == LoginUtil.SUCCESS)
-                Toast.makeText(this, R.string.login_success, Toast.LENGTH_SHORT).show();
-            else if (result == LoginUtil.FAILURE)
-                Toast.makeText(this, R.string.login_failure, Toast.LENGTH_SHORT).show();
-            else if (result == LoginUtil.BUSY)
-                Toast.makeText(this, R.string.login_busy, Toast.LENGTH_SHORT).show();
+            LoginUtil.doLogin(username, password, new LoginUtil.LoginCallback() {
+                @Override
+                public void onLoginResult(int result) {
+                    if (result == LoginUtil.SUCCESS) {
+                        CommonUtil.showToast(LoginActivity.this, getString(R.string.login_success));
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
+                    } else if (result == LoginUtil.FAILURE)
+                        CommonUtil.showToast(LoginActivity.this, getString(R.string.login_failure));
+                    else if (result == LoginUtil.BUSY)
+                        CommonUtil.showToast(LoginActivity.this, getString(R.string.login_busy));
+                }
+            });
         }
     }
 

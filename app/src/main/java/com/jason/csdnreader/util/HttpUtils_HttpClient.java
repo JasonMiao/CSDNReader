@@ -23,12 +23,12 @@ import org.apache.http.util.EntityUtils;
  * @author zzmiao
  * 
  */
-public class HttpUtils {
+public class HttpUtils_HttpClient {
 	private static  CookieStore cookieStore = new BasicCookieStore();
 	private static  CloseableHttpClient httpClient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
 	private static  HttpClientContext context = new HttpClientContext();
 
-	private HttpUtils() {
+	private HttpUtils_HttpClient() {
 
 	}
 

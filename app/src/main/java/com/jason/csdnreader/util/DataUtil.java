@@ -128,7 +128,7 @@ public class DataUtil {
     //TODO 解析专栏
 
     /**
-     * 获取个人资料
+     * 解析个人资料
      * @param str
      * @return
      */

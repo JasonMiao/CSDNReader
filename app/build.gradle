@@ -66,4 +66,8 @@ dependencies {
      */
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile files('libs/commons-logging-1.2.jar')
+    /**
+     * 使用android-async-http网络请求库
+     */
+    compile 'com.loopj.android:android-async-http:1.4.9'
 }
