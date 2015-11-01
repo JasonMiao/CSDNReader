@@ -21,7 +21,7 @@ import com.jason.csdnreader.util.LoginUtil;
  */
 public class LoginActivity extends Activity implements View.OnClickListener {
 
-    private EditText etUsername;
+    private EditText etAccount;
     private EditText etPassword;
     private Button btnLogin;
 
@@ -33,7 +33,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
-        etUsername = (EditText) findViewById(R.id.et_login_username);
+        etAccount = (EditText) findViewById(R.id.et_login_account);
         etPassword = (EditText) findViewById(R.id.et_login_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(this);
@@ -42,11 +42,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_login) {
-//            String username = etUsername.getText().toString().trim();
+//            String account = etAccount.getText().toString().trim();
 //            String password = etPassword.getText().toString().trim();
-            String username = "bagecelia@163.com";
+            String account = "bagecelia@163.com";
             String password = "mcmzz925424";
-            if (TextUtils.isEmpty(username)) {
+            if (TextUtils.isEmpty(account)) {
                 CommonUtil.showToast(this, getString(R.string.no_input_account));
                 return;
             }
@@ -54,7 +54,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 CommonUtil.showToast(this, getString(R.string.no_input_password));
                 return;
             }
-            LoginUtil.doLogin(username, password, new LoginUtil.LoginCallback() {
+            LoginUtil.doLogin(account, password, new LoginUtil.LoginCallback() {
                 @Override
                 public void onLoginResult(int result) {
                     if (result == LoginUtil.SUCCESS) {

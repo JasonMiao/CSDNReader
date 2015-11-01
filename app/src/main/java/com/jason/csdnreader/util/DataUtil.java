@@ -134,7 +134,21 @@ public class DataUtil {
      */
     public static Profile getProfile(String str){
         Profile profile = new Profile();
-
+        Document doc = Jsoup.parse(str);
+        Element info = doc.getElementsByClass("main").get(0);
+        String pic_suffix = info.select("dt").get(0).select("img").get(0).attr("src"); // 获取到的头像地址为后缀，需要加上统一前缀
+        String pic = URLUtil.MYCSDN + pic_suffix;
+        String following = info.getElementsByClass("focus_num").get(0).select("a").text();
+        String fans = info.getElementsByClass("fans_num").get(0).select("a").text();
+        String nick_name = info.getElementsByClass("person-nick-name").get(0).select("span").text();
+        String intro =  info.getElementsByClass("person-sign").get(0).text();
+        String username = info.getElementsByClass("edit_intro").get(0).select("span").get(1).text();
+        profile.setPic(pic);
+        profile.setNick_name(nick_name);
+        profile.setIntro(intro);
+        profile.setFollowing(following);
+        profile.setFans(fans);
+        profile.setUsername(username);
         return profile;
     }
 }

@@ -13,7 +13,11 @@ public class Profile implements Serializable {
     /**
      * 昵称
      */
-    private String name;
+    private String nick_name;
+    /**
+     * 用户名
+     */
+    private String username;
     /**
      * 个人简介
      */
@@ -35,20 +39,28 @@ public class Profile implements Serializable {
         this.pic = pic;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getIntro() {
         return intro;
     }
 
     public void setIntro(String intro) {
         this.intro = intro;
+    }
+
+    public String getNick_name() {
+        return nick_name;
+    }
+
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFollowing() {

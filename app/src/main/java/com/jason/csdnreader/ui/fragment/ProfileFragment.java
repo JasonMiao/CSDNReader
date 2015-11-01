@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jason.csdnreader.R;
+import com.jason.csdnreader.bean.Profile;
+import com.jason.csdnreader.util.CommonUtil;
+import com.jason.csdnreader.util.DataUtil;
 import com.jason.csdnreader.util.HttpUtil;
 import com.jason.csdnreader.util.URLUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -29,26 +32,33 @@ import de.hdodenhof.circleimageview.CircleImageView;
  *
  * Created by zzmiao on 2015/9/23.
  */
-public class ProfileFragment extends Fragment implements BGARefreshLayout.BGARefreshLayoutDelegate{
+public class ProfileFragment extends Fragment implements View.OnClickListener{
     private View view;
-    private BGARefreshLayout mRefreshLayout;
     private CircleImageView civProfile;
-    private TextView tvName;
+    private TextView tvNickName;
     private TextView tvIntro;
     private TextView tvFollowing;
     private TextView tvFans;
+    private Profile profile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        initRefreshLayout();
         initView();
+        initEvent();
         return view;
+    }
+
+    private void initEvent() {
+        view.findViewById(R.id.ll_profile_following).setOnClickListener(this);
+        view.findViewById(R.id.rl_profile_blog).setOnClickListener(this);
+        view.findViewById(R.id.rl_profile_collect).setOnClickListener(this);
+        view.findViewById(R.id.rl_profile_set).setOnClickListener(this);
     }
 
     private void initView() {
         civProfile = (CircleImageView) view.findViewById(R.id.civ_profile);
-        tvName = (TextView) view.findViewById(R.id.tv_profile_name);
+        tvNickName = (TextView) view.findViewById(R.id.tv_profile_nick_name);
         tvIntro = (TextView) view.findViewById(R.id.tv_profile_intro);
         tvFollowing = (TextView) view.findViewById(R.id.tv_profile_following);
         tvFans = (TextView) view.findViewById(R.id.tv_profile_fans);
@@ -68,7 +78,12 @@ public class ProfileFragment extends Fragment implements BGARefreshLayout.BGARef
                     result = new String(responseBody, "utf-8");
 //                    System.out.print(result);
                     // 解析个人信息
-
+                    profile = DataUtil.getProfile(result);
+                    Picasso.with(getActivity()).load(profile.getPic()).into(civProfile);
+                    tvNickName.setText(profile.getNick_name());
+                    tvIntro.setText(profile.getIntro());
+                    tvFollowing.setText(profile.getFollowing());
+                    tvFans.setText(profile.getFans());
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -81,19 +96,21 @@ public class ProfileFragment extends Fragment implements BGARefreshLayout.BGARef
         });
     }
 
-    private void initRefreshLayout() {
-        mRefreshLayout = (BGARefreshLayout) view.findViewById(R.id.rl_frag_profile);
-        mRefreshLayout.setDelegate(this);
-        mRefreshLayout.setRefreshViewHolder(new BGAMoocStyleRefreshViewHolder(getActivity(), true));
-    }
-
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ll_profile_following:
 
-    }
+                break;
+            case R.id.rl_profile_blog:
+                CommonUtil.showToast(getActivity(), URLUtil.BLOG + profile.getUsername());
+                break;
+            case R.id.rl_profile_collect:
 
-    @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
+                break;
+            case R.id.rl_profile_set:
+
+                break;
+        }
     }
 }

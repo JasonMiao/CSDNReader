@@ -13,7 +13,21 @@ public class URLUtil {
     /**
      * 个人中心地址
      */
-    public static String MYCSDN = "http://my.csdn.net/";
+    public static String MYCSDN = "http://my.csdn.net";
+    /**
+     * 我关注对象地址
+     */
+    // http://my.csdn.net/service/main/my_relation?pageno=1&pagesize=50&type=follow --返回JSON字符串
+    // http://my.csdn.net/my/follow/1 --也可以解析页面
+    /**
+     * 我的收藏地址
+     */
+    // http://my.csdn.net/my/favorite/get_favorite_list?pageno=1&pagesize=10&username=bagecelia
+    /**
+     * 博客地址
+     */
+    public static String BLOG = "http://blog.csdn.net/";
+
 
     /**
      * 资讯地址工具类

@@ -29,13 +29,14 @@ public class LoginUtil {
         public void onLoginResult(int result);
     }
 
-    public static void doLogin(final String username, final String password, final LoginCallback callback) {
+    public static void doLogin(final String account, final String password, final LoginCallback callback) {
         HttpUtil.get(URLUtil.LOGIN_URL, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
                     String html = new String(responseBody, "UTF-8");
                     if (html.indexOf("redirect_back") > -1) { //有缓存直接登录
+                        //TODO 登录成功后解析出个人资料信息-username,email等
                         callback.onLoginResult(SUCCESS);
                     } else {
                         Document doc = Jsoup.parse(html);
@@ -45,7 +46,7 @@ public class LoginUtil {
                         String execution = form.select("input[name=execution]").get(0).val();
                         String _eventId = form.select("input[name=_eventId]").get(0).val();
                         RequestParams params = new RequestParams();
-                        params.add("username", username);
+                        params.add("account", account);
                         params.add("password", password);
                         params.add("lt", lt);
                         params.add("execution", execution);
@@ -56,6 +57,7 @@ public class LoginUtil {
                                 try {
                                     String ret = new String(responseBody, "UTF-8");
                                     if (ret.indexOf("redirect_back") > -1) {
+                                        //TODO 登录成功后解析出个人资料信息-username,email等
                                         callback.onLoginResult(SUCCESS);
                                     } else if (ret.indexOf("登录太频繁") > -1) {
                                         callback.onLoginResult(BUSY);
