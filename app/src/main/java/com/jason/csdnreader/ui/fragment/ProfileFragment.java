@@ -1,12 +1,11 @@
 package com.jason.csdnreader.ui.fragment;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jason.csdnreader.R;
@@ -15,24 +14,18 @@ import com.jason.csdnreader.util.CommonUtil;
 import com.jason.csdnreader.util.DataUtil;
 import com.jason.csdnreader.util.HttpUtil;
 import com.jason.csdnreader.util.URLUtil;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.squareup.picasso.Picasso;
-
-import org.jsoup.Jsoup;
 
 import java.io.UnsupportedEncodingException;
 
-import cn.bingoogolapple.refreshlayout.BGAMoocStyleRefreshViewHolder;
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
-import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 个人中心Fragment
- *
+ * <p/>
  * Created by zzmiao on 2015/9/23.
  */
-public class ProfileFragment extends Fragment implements View.OnClickListener{
+public class ProfileFragment extends Fragment implements View.OnClickListener {
     private View view;
     private CircleImageView civProfile;
     private TextView tvNickName;
@@ -70,30 +63,26 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         /**
          * 获取并解析出个人信息
          */
-        HttpUtil.get(URLUtil.MYCSDN, new AsyncHttpResponseHandler() {
+        new AsyncTask<String, Void, String>() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String result = "";
-                try {
-                    result = new String(responseBody, "utf-8");
-//                    System.out.print(result);
-                    // 解析个人信息
-                    profile = DataUtil.getProfile(result);
-                    Picasso.with(getActivity()).load(profile.getPic()).into(civProfile);
-                    tvNickName.setText(profile.getNick_name());
-                    tvIntro.setText(profile.getIntro());
-                    tvFollowing.setText(profile.getFollowing());
-                    tvFans.setText(profile.getFans());
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+            protected String doInBackground(String... params) {
+                String result = HttpUtil.sendGet(params[0]);
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                if (result == null) {
+                    CommonUtil.showToast(getActivity(), "获取信息失败");
                 }
+                profile = DataUtil.getProfile(result);
+                Picasso.with(getActivity()).load(profile.getPic()).into(civProfile);
+                tvNickName.setText(profile.getNick_name());
+                tvIntro.setText(profile.getIntro());
+                tvFollowing.setText(profile.getFollowing());
+                tvFans.setText(profile.getFans());
             }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-            }
-        });
+        }.execute(URLUtil.MYCSDN);
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -54,9 +53,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 CommonUtil.showToast(this, getString(R.string.no_input_password));
                 return;
             }
-            LoginUtil.doLogin(account, password, new LoginUtil.LoginCallback() {
+            new AsyncTask<String, Void, Integer>() {
                 @Override
-                public void onLoginResult(int result) {
+                protected Integer doInBackground(String... params) {
+                    int result = LoginUtil.doLogin(params[0], params[1]);
+                    return result;
+                }
+
+                @Override
+                protected void onPostExecute(Integer result) {
                     if (result == LoginUtil.SUCCESS) {
                         CommonUtil.showToast(LoginActivity.this, getString(R.string.login_success));
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -66,7 +71,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     else if (result == LoginUtil.BUSY)
                         CommonUtil.showToast(LoginActivity.this, getString(R.string.login_busy));
                 }
-            });
+            }.execute(account, password);
         }
     }
 

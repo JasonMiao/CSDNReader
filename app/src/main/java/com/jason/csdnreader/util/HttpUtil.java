@@ -1,49 +1,92 @@
 package com.jason.csdnreader.util;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import java.io.IOException;
+import java.util.List;
+
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.NameValuePair;
+import cz.msebera.android.httpclient.client.CookieStore;
+import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
+import cz.msebera.android.httpclient.client.methods.CloseableHttpResponse;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.client.protocol.HttpClientContext;
+import cz.msebera.android.httpclient.impl.client.BasicCookieStore;
+import cz.msebera.android.httpclient.impl.client.CloseableHttpClient;
+import cz.msebera.android.httpclient.impl.client.HttpClients;
+import cz.msebera.android.httpclient.util.EntityUtils;
 
 /**
- * Http请求工具类
+ * Http工具类 单例模式
  *
- * Created by iNanHu on 2015/10/31.
+ * 貌似Android SDK API22开始砍掉了HttpClient！！！所以只能使用第三方的httpclient
+ * @author zzmiao
+ * 
  */
 public class HttpUtil {
-    private static AsyncHttpClient client = new AsyncHttpClient(); // 实例化对象
+	private static  CookieStore cookieStore = new BasicCookieStore();
+	private static CloseableHttpClient httpClient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
+	private static HttpClientContext context = new HttpClientContext();
 
-    /**
-     * 静态初始化
-     */
-    static {
-        client.setTimeout(20000);
-        client.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko");
-    }
+	private HttpUtil() {
 
-    /**
-     * Get请求方式
-     * @param url
-     * @param res
-     */
-    public static void get(String url, AsyncHttpResponseHandler res) {
-        client.get(url, res);
-    }
+	}
 
-    /**
-     * 带参数的Post请求方式
-     * @param url
-     * @param params
-     * @param res
-     */
-    public static void post(String url, RequestParams params, AsyncHttpResponseHandler res) {
-        client.post(url, params, res);
-    }
+	public static String sendGet(String url) {
+		CloseableHttpResponse response = null;
+		String content = null;
+		try {
+			HttpGet get = new HttpGet(url);
+			// 获取需要登录的页面内容时，需要添加请求头部
+			get.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;");
+			get.setHeader("Accept-Language", "zh-cn");
+			get.setHeader("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3");
+			get.setHeader("Accept-Charset", "gzip, deflate");
+			get.setHeader("Keep-Alive", "300");
+			get.setHeader("Connection", "Keep-Alive");
+//			get.setHeader("Cache-Control", "no-cache");
+			response = httpClient.execute(get, context);
+			HttpEntity entity = response.getEntity();
+			content = EntityUtils.toString(entity);
+			EntityUtils.consume(entity);
+			return content;
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (response != null) {
+				try {
+					response.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return content;
+	}
 
-    /**
-     * 返回请求客户端
-     * @return
-     */
-    public static AsyncHttpClient getClient() {
-        return client;
-    }
+	public static String sendPost(String url, List<NameValuePair> nvps) {
+		CloseableHttpResponse response = null;
+		String content = null;
+		try {
+			HttpPost post = new HttpPost(url);
+			if (nvps != null) {
+				post.setEntity(new UrlEncodedFormEntity(nvps, "UTF-8"));
+			}
+			response = httpClient.execute(post, context);
+			HttpEntity entity = response.getEntity();
+			content = EntityUtils.toString(entity);
+			EntityUtils.consume(entity);
+			return content;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (response != null) {
+				try {
+					response.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return content;
+	}
 }
