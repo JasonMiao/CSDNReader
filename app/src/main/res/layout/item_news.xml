@@ -13,7 +13,7 @@
 
         <ImageView
             android:id="@+id/iv_news_pic"
-            android:layout_width="80dp"
+            android:layout_width="120dp"
             android:layout_height="80dp"
             android:layout_margin="6dp"
             android:scaleType="fitXY"/>
@@ -23,7 +23,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"
+        android:layout_weight="2.5"
         android:padding="6dp">
 
         <TextView
