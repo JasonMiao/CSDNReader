@@ -24,4 +24,6 @@
     <string name="login_success">登录成功</string>
     <string name="login_failure">登录失败</string>
     <string name="login_busy">登录频繁</string>
+
+    <string name="follow_topbar_titile">我的关注</string>
 </resources>

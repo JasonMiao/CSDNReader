@@ -19,6 +19,7 @@ import com.jason.csdnreader.app.MyApplication;
 import com.jason.csdnreader.bean.NewsItem;
 import com.jason.csdnreader.bean.Page;
 import com.jason.csdnreader.ui.view.DividerItemDecoration;
+import com.jason.csdnreader.util.CommonUtil;
 import com.jason.csdnreader.util.Constant;
 import com.jason.csdnreader.util.DataUtil;
 import com.jason.csdnreader.util.NetworkImageHolderView;
@@ -57,6 +58,7 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
         initBanner();
         initRefreshLayout();
         initRecyclerView();
+        beginRefreshing();
         return view;
     }
 
@@ -65,12 +67,6 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
         super.onCreate(savedInstanceState);
         page = new Page();
         page.setPageStart();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        beginRefreshing();
     }
 
     /**
@@ -183,8 +179,14 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
 
             @Override
             protected void onPostExecute(List<NewsItem> list) {
-                mAdapter.addNewDatas(list);
+                if (list.size() == 0) {
+                    //TODO 提示没有数据，界面显示
+                    CommonUtil.showToast(getActivity(), "获取数据失败");
+                }
                 mRefreshLayout.endRefreshing();
+//                mAdapter.addNewDatas(list);
+                // 因为刷新是抓取页面第一页的所有数据，所以不能用add而是用set充值列表
+                mAdapter.setDatas(list);
                 mRecyclerView.smoothScrollToPosition(0);
             }
         }.execute(URLUtil.NewsUrl.getNewsUrl(news_type, "1"));
@@ -210,8 +212,11 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
 
             @Override
             protected void onPostExecute(List<NewsItem> list) {
-                mAdapter.addMoreDatas(list);
+                if (list == null){
+                    CommonUtil.showToast(getActivity(), "没有数据啦");
+                }
                 mRefreshLayout.endLoadingMore();
+                mAdapter.addMoreDatas(list);
                 page.addPage();
             }
         }.execute(URLUtil.NewsUrl.getNewsUrl(news_type, page.getCurrentPage()));

@@ -16,6 +16,7 @@ import com.jason.csdnreader.bean.BlogItem;
 import com.jason.csdnreader.bean.NewsItem;
 import com.jason.csdnreader.bean.Page;
 import com.jason.csdnreader.ui.view.DividerItemDecoration;
+import com.jason.csdnreader.util.CommonUtil;
 import com.jason.csdnreader.util.Constant;
 import com.jason.csdnreader.util.DataUtil;
 import com.jason.csdnreader.util.URLUtil;
@@ -28,7 +29,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 /**
  * 博客Fragment
- *
+ * <p/>
  * Created by zzmiao on 2015/9/23.
  */
 public class BlogFragment extends Fragment implements BGARefreshLayout.BGARefreshLayoutDelegate, BGAOnRVItemClickListener {
@@ -46,6 +47,7 @@ public class BlogFragment extends Fragment implements BGARefreshLayout.BGARefres
         view = inflater.inflate(R.layout.fragment_blog, container, false);
         initRefreshLayout();
         initRecyclerView();
+        beginRefreshing();
         return view;
     }
 
@@ -69,12 +71,6 @@ public class BlogFragment extends Fragment implements BGARefreshLayout.BGARefres
         super.onCreate(savedInstanceState);
         page = new Page();
         page.setPageStart();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        beginRefreshing();
     }
 
     public String getmTopbarTitle() {
@@ -134,8 +130,14 @@ public class BlogFragment extends Fragment implements BGARefreshLayout.BGARefres
 
             @Override
             protected void onPostExecute(List<BlogItem> list) {
-                mAdapter.addNewDatas(list);
+                if (list == null) {
+                    //TODO 提示没有数据，界面显示
+                    CommonUtil.showToast(getActivity(), "获取数据失败");
+                }
                 mRefreshLayout.endRefreshing();
+//                mAdapter.addNewDatas(list);
+                // 因为刷新是抓取页面第一页的所有数据，所以不能用add而是用set充值列表
+                mAdapter.setDatas(list);
                 mRecyclerView.smoothScrollToPosition(0);
             }
         }.execute(URLUtil.BlogUrl.getBlogUrl(blog_type, 0, "1"));
@@ -155,8 +157,12 @@ public class BlogFragment extends Fragment implements BGARefreshLayout.BGARefres
 
             @Override
             protected void onPostExecute(List<BlogItem> list) {
-                mAdapter.addMoreDatas(list);
+                if (list == null) {
+                    //TODO 提示没有数据，界面显示
+                    CommonUtil.showToast(getActivity(), "没有数据啦");
+                }
                 mRefreshLayout.endLoadingMore();
+                mAdapter.addMoreDatas(list);
                 page.addPage();
             }
         }.execute(URLUtil.BlogUrl.getBlogUrl(blog_type, 0, page.getCurrentPage()));

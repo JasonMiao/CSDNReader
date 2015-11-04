@@ -1,6 +1,9 @@
 package com.jason.csdnreader.util;
 
+import android.util.Log;
+
 import com.jason.csdnreader.bean.BlogItem;
+import com.jason.csdnreader.bean.FollowItem;
 import com.jason.csdnreader.bean.NewsItem;
 import com.jason.csdnreader.bean.Profile;
 
@@ -20,6 +23,7 @@ import java.util.regex.Pattern;
  * Created by zzmiao on 2015/10/26.
  */
 public class DataUtil {
+    public static final String TAG = DataUtil.class.getSimpleName();
     /**
      * 根据URL获取Document
      *
@@ -54,6 +58,7 @@ public class DataUtil {
 
     /**
      * 获取资讯列表
+     *
      * @param url
      * @return
      */
@@ -94,6 +99,7 @@ public class DataUtil {
 
     /**
      * 获取博客列表
+     *
      * @param url
      * @return
      */
@@ -102,7 +108,7 @@ public class DataUtil {
         Document doc = loadDocByUrl(url);
         Elements blogList = doc.getElementsByClass("blog_list");
 
-        for (Element blogItem : blogList){
+        for (Element blogItem : blogList) {
             BlogItem blog = new BlogItem();
             String link = blogItem.select("a").attr("href");
             String title = blogItem.select("h1").text();
@@ -129,10 +135,11 @@ public class DataUtil {
 
     /**
      * 解析个人资料
+     *
      * @param str
      * @return
      */
-    public static Profile getProfile(String str){
+    public static Profile getProfile(String str) {
         Profile profile = new Profile();
         Document doc = Jsoup.parse(str);
         Element info = doc.getElementsByClass("main").get(0);
@@ -141,7 +148,7 @@ public class DataUtil {
         String following = info.getElementsByClass("focus_num").get(0).select("a").text();
         String fans = info.getElementsByClass("fans_num").get(0).select("a").text();
         String nick_name = info.getElementsByClass("person-nick-name").get(0).select("span").text();
-        String intro =  info.getElementsByClass("person-sign").get(0).text();
+        String intro = info.getElementsByClass("person-sign").get(0).text();
         String username = info.getElementsByClass("edit_intro").get(0).select("span").get(1).text();
         profile.setPic(pic);
         profile.setNick_name(nick_name);
@@ -150,5 +157,32 @@ public class DataUtil {
         profile.setFans(fans);
         profile.setUsername(username);
         return profile;
+    }
+
+    /**
+     * 解析关注者列表
+     *
+     * @param str
+     * @return
+     */
+    public static List<FollowItem> getFollowingList(String str) {
+        List<FollowItem> list = new ArrayList<>();
+        Document doc = Jsoup.parse(str);
+        Elements followList = doc.getElementsByClass("col-sm-6");
+
+        for (Element followItem : followList) {
+            FollowItem follow = new FollowItem();
+            String pic = followItem.select("img").get(0).attr("src");
+            String username = followItem.select("img").get(0).attr("alt");
+            String nick_name = followItem.select("h4").get(0).select("a").text();
+            String intro = followItem.select("dd").get(0).select("p").text();
+            follow.setPic(pic);
+            follow.setUsername(username);
+            follow.setNick_name(nick_name);
+            follow.setIntro(intro);
+            list.add(follow);
+            Log.e(TAG, follow.toString());
+        }
+        return list;
     }
 }

@@ -19,6 +19,10 @@ public class URLUtil {
      */
     // http://my.csdn.net/service/main/my_relation?pageno=1&pagesize=50&type=follow --返回JSON字符串
     // http://my.csdn.net/my/follow/1 --也可以解析页面
+    public static String MYFOLLOW = "http://my.csdn.net/my/follow/";
+    public static String getMyFollowUrl(String page) {
+        return MYFOLLOW + page;
+    }
     /**
      * 我的收藏地址
      */
@@ -27,7 +31,6 @@ public class URLUtil {
      * 博客地址
      */
     public static String BLOG = "http://blog.csdn.net/";
-
 
     /**
      * 资讯地址工具类

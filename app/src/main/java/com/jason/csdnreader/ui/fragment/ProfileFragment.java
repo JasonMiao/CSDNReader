@@ -1,6 +1,7 @@
 package com.jason.csdnreader.ui.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.jason.csdnreader.R;
 import com.jason.csdnreader.bean.Profile;
+import com.jason.csdnreader.ui.activity.FollowActivity;
 import com.jason.csdnreader.util.CommonUtil;
 import com.jason.csdnreader.util.DataUtil;
 import com.jason.csdnreader.util.HttpUtil;
@@ -39,27 +41,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         initView();
         initEvent();
+        initData();
         return view;
     }
 
-    private void initEvent() {
-        view.findViewById(R.id.ll_profile_following).setOnClickListener(this);
-        view.findViewById(R.id.rl_profile_blog).setOnClickListener(this);
-        view.findViewById(R.id.rl_profile_collect).setOnClickListener(this);
-        view.findViewById(R.id.rl_profile_set).setOnClickListener(this);
-    }
-
-    private void initView() {
-        civProfile = (CircleImageView) view.findViewById(R.id.civ_profile);
-        tvNickName = (TextView) view.findViewById(R.id.tv_profile_nick_name);
-        tvIntro = (TextView) view.findViewById(R.id.tv_profile_intro);
-        tvFollowing = (TextView) view.findViewById(R.id.tv_profile_following);
-        tvFans = (TextView) view.findViewById(R.id.tv_profile_fans);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private void initData() {
         /**
          * 获取并解析出个人信息
          */
@@ -85,11 +71,26 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }.execute(URLUtil.MYCSDN);
     }
 
+    private void initEvent() {
+        view.findViewById(R.id.ll_profile_following).setOnClickListener(this);
+        view.findViewById(R.id.rl_profile_blog).setOnClickListener(this);
+        view.findViewById(R.id.rl_profile_collect).setOnClickListener(this);
+        view.findViewById(R.id.rl_profile_set).setOnClickListener(this);
+    }
+
+    private void initView() {
+        civProfile = (CircleImageView) view.findViewById(R.id.civ_profile);
+        tvNickName = (TextView) view.findViewById(R.id.tv_profile_nick_name);
+        tvIntro = (TextView) view.findViewById(R.id.tv_profile_intro);
+        tvFollowing = (TextView) view.findViewById(R.id.tv_profile_following);
+        tvFans = (TextView) view.findViewById(R.id.tv_profile_fans);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_profile_following:
-
+                startActivity(new Intent(getActivity(), FollowActivity.class));
                 break;
             case R.id.rl_profile_blog:
                 CommonUtil.showToast(getActivity(), URLUtil.BLOG + profile.getUsername());
