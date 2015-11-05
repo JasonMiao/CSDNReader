@@ -27,6 +27,7 @@ import cn.bingoogolapple.androidcommon.adapter.BGAOnRVItemClickListener;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout.BGARefreshLayoutDelegate;
+import cn.bingoogolapple.refreshlayout.BGAStickinessRefreshViewHolder;
 
 /**
  * 我关注的对象
@@ -70,7 +71,7 @@ public class FollowActivity extends Activity implements View.OnClickListener, BG
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         mRefreshLayout = (BGARefreshLayout) findViewById(R.id.rl_activity_follow);
         mRefreshLayout.setDelegate(this);
-        mRefreshLayout.setRefreshViewHolder(new BGANormalRefreshViewHolder(this, true));
+        mRefreshLayout.setRefreshViewHolder(new BGAStickinessRefreshViewHolder(this, true));
     }
 
     private void initEvent() {
