@@ -114,6 +114,7 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
 
     /**
      * 判断Fragment是否可见 ？？为啥没调用？？
+     * 此方法是在onCreateView之前调用
      *
      * @param isVisibleToUser
      */
@@ -187,6 +188,7 @@ public class NewsFragment extends Fragment implements BGARefreshLayout.BGARefres
 //                mAdapter.addNewDatas(list);
                 // 因为刷新是抓取页面第一页的所有数据，所以不能用add而是用set充值列表
                 mAdapter.setDatas(list);
+                page.setPageStart();
                 mRecyclerView.smoothScrollToPosition(0);
             }
         }.execute(URLUtil.NewsUrl.getNewsUrl(news_type, "1"));

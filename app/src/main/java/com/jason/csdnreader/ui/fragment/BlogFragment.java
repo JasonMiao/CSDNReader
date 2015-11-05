@@ -138,6 +138,7 @@ public class BlogFragment extends Fragment implements BGARefreshLayout.BGARefres
 //                mAdapter.addNewDatas(list);
                 // 因为刷新是抓取页面第一页的所有数据，所以不能用add而是用set充值列表
                 mAdapter.setDatas(list);
+                page.setPageStart();
                 mRecyclerView.smoothScrollToPosition(0);
             }
         }.execute(URLUtil.BlogUrl.getBlogUrl(blog_type, 0, "1"));

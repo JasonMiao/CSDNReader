@@ -61,6 +61,7 @@ public class FollowActivity extends Activity implements View.OnClickListener, BG
         tvTitle.setText(getString(R.string.follow_topbar_titile));
         ivBack = (ImageView) findViewById(R.id.iv_content_top_back);
         ivComment = (ImageView) findViewById(R.id.iv_content_top_comment);
+        ivComment.setVisibility(View.GONE);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_activity_follow);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new FollowListAdapter(mRecyclerView);
@@ -123,9 +124,10 @@ public class FollowActivity extends Activity implements View.OnClickListener, BG
                     CommonUtil.showToast(FollowActivity.this, "获取数据失败");
                 }
 //                mAdapter.addNewDatas(list);
-                // 因为刷新是抓取页面第一页的所有数据，所以不能用add而是用set充值列表
-                mAdapter.setDatas(list);
+                // 因为刷新是抓取页面第一页的所有数据，所以不能用add而是用set充值列表，而且page要重置
                 mRefreshLayout.endRefreshing();
+                mAdapter.setDatas(list);
+                page.setPageStart();
                 mRecyclerView.smoothScrollToPosition(0);
             }
         }.execute(URLUtil.getMyFollowUrl("1"));
