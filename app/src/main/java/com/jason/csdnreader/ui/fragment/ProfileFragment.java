@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.jason.csdnreader.R;
 import com.jason.csdnreader.bean.Profile;
+import com.jason.csdnreader.ui.activity.BloggerShowActivity;
 import com.jason.csdnreader.ui.activity.FollowActivity;
 import com.jason.csdnreader.util.CommonUtil;
 import com.jason.csdnreader.util.DataUtil;
@@ -93,7 +94,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), FollowActivity.class));
                 break;
             case R.id.rl_profile_blog:
-                CommonUtil.showToast(getActivity(), URLUtil.BLOG + profile.getUsername());
+//                CommonUtil.showToast(getActivity(), URLUtil.BLOG + profile.getUsername());
+                Intent intent = new Intent(getActivity(), BloggerShowActivity.class);
+                intent.putExtra(BloggerShowActivity.USERNAME, profile.getUsername());
+                startActivity(intent);
                 break;
             case R.id.rl_profile_collect:
 

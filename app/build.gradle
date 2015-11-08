@@ -39,31 +39,32 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.1.0'
     /**
-     *     引用saiwu-bigkoo的开源对话框
+     *      引用saiwu-bigkoo的开源对话框
      */
     compile 'com.bigkoo:alertview:1.0.0'
     /**
-     *     引用Picasso图片下载和缓存库
+     *      引用Picasso图片下载和缓存库
      */
     compile 'com.squareup.picasso:picasso:2.5.2'
     /**
-     *    引用郭神的数据库操作开源库LitePal
+     *     引用郭神的数据库操作开源库LitePal
      */
     compile 'org.litepal.android:core:1.3.0'
     /**
-     *    引用saiwu-bigkoo的banner控件
+     *     引用saiwu-bigkoo的banner控件
      */
     compile 'com.bigkoo:convenientbanner:1.0.8'
     /**
-     *    引用bingoogolapple的下拉刷新控件
+     *     引用bingoogolapple的下拉刷新控件
      */
     compile 'com.android.support:recyclerview-v7:23.1.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'cn.bingoogolapple:bga-refreshlayout:1.0.8@aar'
     compile 'cn.bingoogolapple:bga-adapter:1.0.6@aar'
     /**
-     *    引用hdodenhof的CircleImageView
+     *     引用hdodenhof的CircleImageView
      */
     compile 'de.hdodenhof:circleimageview:2.0.0'
-    compile "cz.msebera.android:httpclient:4.4.1.1"
+    compile 'cz.msebera.android:httpclient:4.4.1.1'
+    compile files('libs/viewpagerindicator_v1.0.2.jar')
 }

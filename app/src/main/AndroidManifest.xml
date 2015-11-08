@@ -47,6 +47,14 @@
                 <category android:name="android.intent.category.INFO"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.BloggerShowActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.INFO"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

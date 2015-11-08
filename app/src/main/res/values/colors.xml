@@ -2,7 +2,10 @@
 <resources>
     <color name="tabbar_text_default">#808080</color>
     <color name="tabbar_text_selected">#ff8200</color>
-    <color name="black">#000000</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
     <color name="item_clicked">#BFBFBF</color>
     <color name="btn_clicked">#BFEFFF</color>
+    <color name="tab_top_text_1">#aaa</color>
+    <color name="tab_top_text_2">#000</color>
 </resources>

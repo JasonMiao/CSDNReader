@@ -2,6 +2,151 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#63B8FF">
+
+        <ImageView
+            android:id="@+id/iv_blogger_show_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/back_btn"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_blogger_pic"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_launcher"
+            app:civ_border_color="#fff"
+            app:civ_border_width="2dp"/>
+
+        <TextView
+            android:id="@+id/tv_blogger_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/civ_blogger_pic"
+            android:layout_marginTop="6dp"
+            android:layout_centerHorizontal="true"
+            android:maxLines="1"
+            android:text="安卓开发"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:id="@+id/ll_blogger_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_below="@id/tv_blogger_username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="排名："
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tv_blogger_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="46050"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="等级："
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+
+            <ImageView
+                android:id="@+id/iv_blogger_level"
+                android:layout_width="wrap_content"
+                android:layout_height="13dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/blog5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:layout_below="@id/ll_blogger_intro"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="访问："
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tv_blogger_pv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="46050"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="积分："
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tv_blogger_integral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="46050"
+                android:textSize="12sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:orientation="vertical">
+
+        <com.shizhefei.view.indicator.FixedIndicatorView
+            android:id="@+id/fiv_bloggershow"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/line"/>
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_bloggershow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
 
 </LinearLayout>

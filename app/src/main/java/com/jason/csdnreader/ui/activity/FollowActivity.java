@@ -1,6 +1,7 @@
 package com.jason.csdnreader.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -62,7 +63,7 @@ public class FollowActivity extends Activity implements View.OnClickListener, BG
         tvTitle.setText(getString(R.string.follow_topbar_titile));
         ivBack = (ImageView) findViewById(R.id.iv_content_top_back);
         ivComment = (ImageView) findViewById(R.id.iv_content_top_comment);
-        ivComment.setVisibility(View.GONE);
+        ivComment.setVisibility(View.INVISIBLE);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_activity_follow);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new FollowListAdapter(mRecyclerView);
@@ -103,7 +104,9 @@ public class FollowActivity extends Activity implements View.OnClickListener, BG
 
     @Override
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
-
+        Intent intent = new Intent(this, BloggerShowActivity.class);
+        intent.putExtra(BloggerShowActivity.USERNAME, mAdapter.getItem(position).getUsername());
+        startActivity(intent);
     }
 
     @Override
