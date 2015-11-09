@@ -41,7 +41,7 @@ dependencies {
     /**
      *      引用saiwu-bigkoo的开源对话框
      */
-    compile 'com.bigkoo:alertview:1.0.0'
+    compile 'com.bigkoo:alertview:1.0.1'
     /**
      *      引用Picasso图片下载和缓存库
      */

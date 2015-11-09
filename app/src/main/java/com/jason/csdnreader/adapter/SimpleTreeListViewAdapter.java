@@ -27,7 +27,7 @@ public class SimpleTreeListViewAdapter<T> extends TreeListViewAdapter<T> {
             convertView = mInflater.inflate(R.layout.treeview_list_item, parent, false);
             holder = new ViewHolder();
             holder.mIcon = (ImageView) convertView.findViewById(R.id.id_item_icon);
-            holder.mText = (TextView) convertView.findViewById(R.id.id_item_text);
+            holder.mLabel = (TextView) convertView.findViewById(R.id.id_item_label);
             holder.mDesc = (TextView) convertView.findViewById(R.id.id_item_desc);
             convertView.setTag(holder);
         } else {
@@ -40,15 +40,21 @@ public class SimpleTreeListViewAdapter<T> extends TreeListViewAdapter<T> {
             holder.mIcon.setImageResource(node.getIcon());
         }
 
-        holder.mText.setText(node.getName());
-        holder.mDesc.setText(node.getDesc());
+        holder.mLabel.setText(node.getName());
+        if (node.getDesc().equals("0")) { // 如果是叶节点则不显示desc
+            holder.mDesc.setVisibility(View.INVISIBLE);
+        } else {
+            holder.mDesc.setText(node.getDesc());
+        }
+        if (node.isLeaf())
+            holder.mLabel.setTextSize(12);
 
         return convertView;
     }
 
     private class ViewHolder {
         ImageView mIcon;
-        TextView mText;
+        TextView mLabel;
         TextView mDesc;
     }
 
