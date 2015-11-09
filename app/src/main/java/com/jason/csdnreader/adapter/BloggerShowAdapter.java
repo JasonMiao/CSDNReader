@@ -1,5 +1,6 @@
 package com.jason.csdnreader.adapter;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.jason.csdnreader.R;
 import com.jason.csdnreader.app.MyApplication;
+import com.jason.csdnreader.ui.activity.BloggerShowActivity;
 import com.jason.csdnreader.ui.fragment.BloggerBlogFrag;
 import com.jason.csdnreader.ui.fragment.BloggerCategoryFrag;
 import com.jason.csdnreader.ui.fragment.BloggerColumnFrag;
@@ -21,9 +23,11 @@ import com.shizhefei.view.indicator.IndicatorViewPager;
 public class BloggerShowAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
     private String[] titles = {"专栏", "博客", "分类"};
     private LayoutInflater inflate;
+    private String username;
 
-    public BloggerShowAdapter(FragmentManager fragmentManager){
+    public BloggerShowAdapter(FragmentManager fragmentManager, String username){
         super(fragmentManager);
+        this.username = username;
         inflate = LayoutInflater.from(MyApplication.getMyApplication().getApplicationContext());
     }
 
@@ -47,11 +51,16 @@ public class BloggerShowAdapter extends IndicatorViewPager.IndicatorFragmentPage
     @Override
     public Fragment getFragmentForPage(int position) {
         Log.e("getFragmentForPage", position + "");
+        Fragment fragment = null;
         if (position == 0)
-            return new BloggerColumnFrag();
+            fragment = new BloggerColumnFrag();
         else if (position == 1)
-            return new BloggerBlogFrag();
+            fragment = new BloggerBlogFrag();
         else
-            return new BloggerCategoryFrag();
+            fragment = new BloggerCategoryFrag();
+        Bundle bundle = new Bundle();
+        bundle.putString(BloggerShowActivity.USERNAME, username);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 }

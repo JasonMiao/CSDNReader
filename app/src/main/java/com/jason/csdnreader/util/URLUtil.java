@@ -28,7 +28,7 @@ public class URLUtil {
      */
     // http://my.csdn.net/my/favorite/get_favorite_list?pageno=1&pagesize=10&username=bagecelia
     /**
-     * 博客地址
+     * 博客地址 访问时博客地址是BLOG+Username
      */
     public static String BLOG = "http://blog.csdn.net/";
 

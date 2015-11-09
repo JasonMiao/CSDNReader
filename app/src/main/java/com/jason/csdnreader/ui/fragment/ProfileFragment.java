@@ -50,19 +50,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         /**
          * 获取并解析出个人信息
          */
-        new AsyncTask<String, Void, String>() {
+        new AsyncTask<String, Void, Profile>() {
             @Override
-            protected String doInBackground(String... params) {
-                String result = HttpUtil.sendGet(params[0]);
-                return result;
+            protected Profile doInBackground(String... params) {
+                String html = HttpUtil.sendGet(params[0]);
+                if (html == null) {
+                    CommonUtil.showToast(getActivity(), "获取信息失败");
+                }
+                Profile profile = DataUtil.getProfile(html);
+                return profile;
             }
 
             @Override
-            protected void onPostExecute(String result) {
-                if (result == null) {
-                    CommonUtil.showToast(getActivity(), "获取信息失败");
-                }
-                profile = DataUtil.getProfile(result);
+            protected void onPostExecute(Profile profile) {
                 Picasso.with(getActivity()).load(profile.getPic()).into(civProfile);
                 tvNickName.setText(profile.getNick_name());
                 tvIntro.setText(profile.getIntro());

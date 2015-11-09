@@ -21,10 +21,10 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_blogger_pic"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_launcher"
             app:civ_border_color="#fff"
             app:civ_border_width="2dp"/>
@@ -34,12 +34,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/civ_blogger_pic"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="5dp"
             android:layout_centerHorizontal="true"
             android:maxLines="1"
             android:text="安卓开发"
             android:textColor="@color/white"
-            android:textSize="18sp"/>
+            android:textSize="20sp"/>
 
         <LinearLayout
             android:id="@+id/ll_blogger_intro"
@@ -76,7 +76,7 @@
             <ImageView
                 android:id="@+id/iv_blogger_level"
                 android:layout_width="wrap_content"
-                android:layout_height="13dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/blog5"/>
         </LinearLayout>

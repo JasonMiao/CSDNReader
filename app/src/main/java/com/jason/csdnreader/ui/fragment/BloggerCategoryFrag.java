@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.jason.csdnreader.R;
+import com.jason.csdnreader.ui.activity.BloggerShowActivity;
 import com.shizhefei.fragment.LazyFragment;
 
 /**
@@ -15,6 +16,6 @@ public class BloggerCategoryFrag extends LazyFragment {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.frag_blogger_category);
         TextView textView = (TextView) findViewById(R.id.tv_blogger_category);
-        textView.setText("Category");
+        textView.setText(getArguments().getString(BloggerShowActivity.USERNAME));
     }
 }
