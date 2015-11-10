@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.jason.csdnreader.bean.BlogItem;
 import com.jason.csdnreader.bean.BloggerIntro;
+import com.jason.csdnreader.bean.Category;
 import com.jason.csdnreader.bean.Column;
 import com.jason.csdnreader.bean.FollowItem;
 import com.jason.csdnreader.bean.NewsItem;
@@ -222,32 +223,113 @@ public class DataUtil {
         List<Column> columns = new ArrayList<>();
         Document doc = Jsoup.parse(str);
         Element temp = doc.select("#sp_column").first();
-        Elements tempList = temp.select("table");
-        int id = 1;
-        int pId;
-        for (Element tempItem : tempList) {
-            String link = tempItem.select("a").get(1).attr("href");
-            String label = tempItem.select("a").get(1).text();
-            String desc = getNumbers(tempItem.select("p").first().text());
-            // 本循环添加根节点
-            columns.add(new Column(id, 0, label, desc, link));
-            // columns添加一个成员后id加1
-            pId = id;
-            id++;
-            // 开始解析专栏详情页
-            Document content = loadDocByUrl(link);
-            Elements columnList = content.getElementsByClass("blog_list");
-            if (Integer.parseInt(desc) <= 20) {
-                for (Element column : columnList) {
-                    String _link = column.select("a").get(1).attr("href");
-                    String _label = column.select("a").get(1).text();
-                    // 本循环添加叶节点 由于是两级树 所以叶节点desc属性应该不显示 处理方式为：传入"0" 在Adapter那里判断如果是叶节点则不显示
-                    columns.add(new Column(id, pId, _label, "0", _link));
-                    id++;
+        // 抓取数据的时候做好判断 博主是否有专栏
+        if (null != temp) {
+            Elements tempList = temp.select("table");
+            int id = 1;
+            int pId;
+            for (Element tempItem : tempList) {
+                String link = tempItem.select("a").get(1).attr("href");
+                String label = tempItem.select("a").get(1).text();
+                String desc = getNumbers(tempItem.select("p").first().text());
+                // 本循环添加根节点
+                columns.add(new Column(id, 0, label, desc, link));
+                // columns添加一个成员后id加1
+                pId = id;
+                id++;
+                // 开始解析专栏详情页
+                int num = Integer.parseInt(desc);
+                if (num <= 20) {
+                    Document content = loadDocByUrl(link);
+                    Elements columnList = content.getElementsByClass("blog_list");
+                    for (Element column : columnList) {
+                        String _link = column.select("a").get(1).attr("href");
+                        String _label = column.select("a").get(1).text();
+                        // 本循环添加叶节点 由于是两级树 所以叶节点desc属性应该不显示 处理方式为：传入""
+                        columns.add(new Column(id, pId, _label, "", _link));
+                        id++;
+                    }
+                } else { // 分页处理
+                    for (int i = 1; i <= (num / 20 + 1); i++) {
+                        Document content = loadDocByUrl(link + "?&page=" + i);
+                        Elements columnList = content.getElementsByClass("blog_list");
+                        for (Element column : columnList) {
+                            String _link = column.select("a").get(1).attr("href");
+                            String _label = column.select("a").get(1).text();
+                            // 本循环添加叶节点 由于是两级树 所以叶节点desc属性应该不显示 处理方式为：传入""
+                            columns.add(new Column(id, pId, _label, "", _link));
+                            id++;
+                        }
+                    }
                 }
             }
         }
-        Log.e("getColumn", columns.toString());
         return columns;
+    }
+
+    /**
+     * 解析博文分类信息
+     * 分类详情页需要处理分页情况 每页最多15条
+     *
+     * @param str
+     * @return
+     */
+    public static List<Category> getCategory(String str) {
+        List<Category> categories = new ArrayList<>();
+        Document doc = Jsoup.parse(str);
+        Element columnOrCategory = doc.select("#panel_Category").first();
+        // 排除既没有专栏也没有分类的博主
+        if (null != columnOrCategory) {
+            Element column = doc.select("#sp_column").first();
+            Element temp;
+            // 没有专栏的人 id=panel_Category的元素就一个 所以获取分类前判断下博主是否有专栏
+            if (null != column) {
+                temp = doc.select("#panel_Category").get(1).select("ul").get(1);
+            } else {
+                temp = doc.select("#panel_Category").get(0).select("ul").get(1);
+            }
+            // 抓取数据的时候做好判断 博主是否有分类
+            if (null != temp) {
+                Elements tempList = temp.select("li");
+                int id = 1;
+                int pId;
+                for (Element tempItem : tempList) {
+                    String link = URLUtil.BLOG_ + tempItem.select("a").first().attr("href");
+                    String label = tempItem.select("a").first().text();
+                    String desc = getNumbers(tempItem.select("span").first().text());
+                    // 本循环增加根节点
+                    categories.add(new Category(id, 0, label, desc, link));
+                    pId = id;
+                    id++;
+                    // 开始解析分类详情页
+                    int num = Integer.parseInt(desc);
+                    if (num <= 15) {
+                        Document content = loadDocByUrl(link);
+                        Elements categoryList = content.getElementsByClass("article_item");
+                        for (Element category : categoryList) {
+                            String _link = URLUtil.BLOG_ + category.getElementsByClass("article_title").first().select("a").attr("href");
+                            String _label = category.getElementsByClass("article_title").first().select("a").text();
+                            // 本循环添加叶节点 由于是两级树 所以叶节点desc属性应该不显示 处理方式为：传入""
+                            categories.add(new Category(id, pId, _label, "", _link));
+                            id++;
+                        }
+                    } else { // 分页处理  但是考虑到循环所有分类的详情会很耗时耗流量 故不在一开始加载子节点 让用户自己选择去加载
+//                    for (int i = 1; i <= (num / 15 + 1); i++) {
+//                        Document content = loadDocByUrl(link + "/" + i);
+//                        Elements categoryList = content.getElementsByClass("article_item");
+//                        for (Element category : categoryList) {
+//                            String _link = URLUtil.BLOG_ + category.getElementsByClass("article_title").first().select("a").attr("href");
+//                            String _label = category.getElementsByClass("article_title").first().select("a").text();
+//                            // 本循环添加叶节点 由于是两级树 所以叶节点desc属性应该不显示 处理方式为：传入""
+//                            categories.add(new Category(id, pId, _label, "", _link));
+//                            id++;
+//                        }
+//                    }
+                    }
+                }
+            }
+        }
+//        Log.e("getCategory", categories.toString());
+        return categories;
     }
 }

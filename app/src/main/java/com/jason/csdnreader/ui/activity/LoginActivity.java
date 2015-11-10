@@ -53,6 +53,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 CommonUtil.showToast(this, getString(R.string.no_input_password));
                 return;
             }
+            CommonUtil.showLoadingDialog(LoginActivity.this, "登录中...");
             new AsyncTask<String, Void, Integer>() {
                 @Override
                 protected Integer doInBackground(String... params) {
@@ -70,6 +71,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         CommonUtil.showToast(LoginActivity.this, getString(R.string.login_failure));
                     else if (result == LoginUtil.BUSY)
                         CommonUtil.showToast(LoginActivity.this, getString(R.string.login_busy));
+                    CommonUtil.dismissLoadingDialog();
                 }
             }.execute(account, password);
         }

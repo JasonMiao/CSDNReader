@@ -26,6 +26,7 @@ public class TreeHelper {
             int pid = -1;
             String label = null;
             String desc = null;
+            String link = null;
 
             node = new Node();
             Class clazz = t.getClass();
@@ -47,8 +48,12 @@ public class TreeHelper {
                     field.setAccessible(true);
                     desc = (String) field.get(t);
                 }
+                if (field.getAnnotation(TreeNodeLink.class) != null) {
+                    field.setAccessible(true);
+                    link = (String) field.get(t);
+                }
             }
-            node = new Node(id, pid, label, desc);
+            node = new Node(id, pid, label, desc, link);
             nodes.add(node);
         }// for end
 

@@ -31,6 +31,7 @@ public class URLUtil {
      * 博客地址 访问时博客地址是BLOG+Username
      */
     public static String BLOG = "http://blog.csdn.net/";
+    public static String BLOG_ = "http://blog.csdn.net";
 
     /**
      * 资讯地址工具类

@@ -3,15 +3,20 @@ package com.jason.csdnreader.ui.view.treeview;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TreeView 节点对象
+ * 今后需增加泛型支持 接受转换前的对象
+ */
 public class Node {
     public Node() {
     }
 
-    public Node(int id, int pId, String name, String desc) {
+    public Node(int id, int pId, String name, String desc, String link) {
         this.id = id;
         this.pId = pId;
         this.name = name;
         this.desc = desc;
+        this.link = link;
     }
 
     private int id;
@@ -21,6 +26,7 @@ public class Node {
     private int pId = 0;
     private String name;
     private String desc;
+    private String link;
     /**
      * 树的层级
      */
@@ -88,6 +94,14 @@ public class Node {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     /**

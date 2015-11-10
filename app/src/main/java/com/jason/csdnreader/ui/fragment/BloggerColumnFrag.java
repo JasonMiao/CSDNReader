@@ -2,6 +2,8 @@ package com.jason.csdnreader.ui.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,6 +31,7 @@ public class BloggerColumnFrag extends LazyFragment {
     private List<Column> columns = new ArrayList<>();
     private ListView lvColumn;
     private TreeListViewAdapter mAdapter;
+    private TextView tvNodata;
 
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
@@ -39,45 +42,44 @@ public class BloggerColumnFrag extends LazyFragment {
     }
 
     private void initData() {
-//        CommonUtil.showLoadingDialog();
-        new AsyncTask<String, Void, List<Column>>() {
+        CommonUtil.showLoadingDialog(getActivity(), "数据加载中...");
+        new AsyncTask<String, Void, Void>() {
             @Override
-            protected List<Column> doInBackground(String... params) {
+            protected Void doInBackground(String... params) {
                 String html = HttpUtil.sendGet(params[0]);
                 columns = DataUtil.getColumn(html);
-                if (columns.size() == 0)
-                    return null;
-                return columns;
+                return null;
             }
 
             @Override
-            protected void onPostExecute(List<Column> result) {
-//                CommonUtil.dismissLoadingDialog();
-                if (result == null)
-                    CommonUtil.showToast(getActivity(), "没有数据");
-                else {
-                    initView();
-                }
+            protected void onPostExecute(Void voids) {
+                CommonUtil.dismissLoadingDialog();
+                initView();
             }
         }.execute(URLUtil.BLOG + username);
     }
 
     private void initView() {
+//        Log.e("initView", String.valueOf(columns.size()));
         lvColumn = (ListView) findViewById(R.id.lv_blogger_column);
-        try {
-            mAdapter = new SimpleTreeListViewAdapter<Column>(lvColumn, getActivity(), columns, 0);
-            mAdapter.setOnTreeNodeClickListener(new TreeListViewAdapter.OnTreeNodeClickListener() {
-                @Override
-                public void onClick(Node node, int position) {
-                    if (node.isLeaf())
-                        CommonUtil.showToast(getActivity(), node.getName());
-                    if (node.isRoot())
-                        CommonUtil.showToast(getActivity(), node.getDesc());
-                }
-            });
-            lvColumn.setAdapter(mAdapter);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        tvNodata = (TextView) findViewById(R.id.tv_blogger_column_nodata);
+        if (columns.size() > 0){
+            lvColumn.setVisibility(View.VISIBLE);
+            try {
+                mAdapter = new SimpleTreeListViewAdapter<Column>(lvColumn, getActivity(), columns, 0);
+                mAdapter.setOnTreeNodeClickListener(new TreeListViewAdapter.OnTreeNodeClickListener() {
+                    @Override
+                    public void onClick(Node node, int position) {
+                        if (node.isLeaf())
+                            CommonUtil.showToast(getActivity(), node.getLink());
+                    }
+                });
+                lvColumn.setAdapter(mAdapter);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        } else {
+            tvNodata.setVisibility(View.VISIBLE);
         }
     }
 }

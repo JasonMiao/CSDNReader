@@ -7,9 +7,9 @@ import com.jason.csdnreader.ui.view.treeview.TreeNodeLink;
 import com.jason.csdnreader.ui.view.treeview.TreeNodePid;
 
 /**
- * Created by zzmiao on 2015/11/9.
+ * Created by zzmiao on 2015/11/10.
  */
-public class Column {
+public class Category {
     @TreeNodeId
     private int _id;
     @TreeNodePid
@@ -21,7 +21,7 @@ public class Column {
     @TreeNodeLink
     private String link;
 
-    public Column(int _id, int pId, String label, String desc, String link) {
+    public Category(int _id, int pId, String label, String desc, String link) {
         super();
         this._id = _id;
         this.pId = pId;

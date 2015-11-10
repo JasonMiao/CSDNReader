@@ -39,16 +39,8 @@ public class SimpleTreeListViewAdapter<T> extends TreeListViewAdapter<T> {
             holder.mIcon.setVisibility(View.VISIBLE);
             holder.mIcon.setImageResource(node.getIcon());
         }
-
         holder.mLabel.setText(node.getName());
-        if (node.getDesc().equals("0")) { // 如果是叶节点则不显示desc
-            holder.mDesc.setVisibility(View.INVISIBLE);
-        } else {
-            holder.mDesc.setText(node.getDesc());
-        }
-        if (node.isLeaf())
-            holder.mLabel.setTextSize(12);
-
+        holder.mDesc.setText(node.getDesc());
         return convertView;
     }
 
