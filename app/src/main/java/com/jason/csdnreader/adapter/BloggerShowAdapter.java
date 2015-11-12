@@ -21,7 +21,7 @@ import com.shizhefei.view.indicator.IndicatorViewPager;
  * Created by zzmiao on 2015/11/8.
  */
 public class BloggerShowAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
-    private String[] titles = {"专栏", "博客", "分类"};
+    private String[] titles = {"博客", "专栏", "分类"};
     private LayoutInflater inflate;
     private String username;
 
@@ -53,9 +53,9 @@ public class BloggerShowAdapter extends IndicatorViewPager.IndicatorFragmentPage
         Log.e("getFragmentForPage", position + "");
         Fragment fragment = null;
         if (position == 0)
-            fragment = new BloggerColumnFrag();
-        else if (position == 1)
             fragment = new BloggerBlogFrag();
+        else if (position == 1)
+            fragment = new BloggerColumnFrag();
         else
             fragment = new BloggerCategoryFrag();
         Bundle bundle = new Bundle();

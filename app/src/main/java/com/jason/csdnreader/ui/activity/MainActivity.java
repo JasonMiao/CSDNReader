@@ -1,22 +1,18 @@
 package com.jason.csdnreader.ui.activity;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -29,36 +25,32 @@ import com.bigkoo.alertview.OnItemClickListener;
 import com.jason.csdnreader.R;
 import com.jason.csdnreader.adapter.GroupAdapter;
 import com.jason.csdnreader.ui.fragment.BlogFragment;
-import com.jason.csdnreader.ui.fragment.FocusFragment;
 import com.jason.csdnreader.ui.fragment.NewsFragment;
 import com.jason.csdnreader.ui.fragment.ProfileFragment;
-import com.jason.csdnreader.util.AESUtil;
-import com.jason.csdnreader.util.Constant;
-import com.jason.csdnreader.util.URLUtil;
 
 import java.util.ArrayList;
 
 public class MainActivity extends Activity implements OnClickListener, AdapterView.OnItemClickListener {
     private LinearLayout mTabNews;
     private LinearLayout mTabBlog;
-    private LinearLayout mTabFocus;
+//    private LinearLayout mTabFocus;
     private LinearLayout mTabProfile;
 
     private ImageButton mImgNews;
     private ImageButton mImgBlog;
-    private ImageButton mImgFocus;
+//    private ImageButton mImgFocus;
     private ImageButton mImgProfile;
 
     private TextView mTextViewNews;
     private TextView mTextViewBlog;
-    private TextView mTextViewFocus;
+//    private TextView mTextViewFocus;
     private TextView mTextViewProfile;
 
     private TextView mTextViewTopTitle;
 
     private NewsFragment mFragmentNews;
     private BlogFragment mFragmentBlog;
-    private FocusFragment mFragmentFocus;
+//    private FocusFragment mFragmentFocus;
     private ProfileFragment mFragmentProfile;
     private int currentFragment = 0; // 表示当前Fragment, 0-News/1-Blog/2-Focus/3-Profile
 
@@ -133,23 +125,23 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
                 groups.add(getString(R.string.b_software));
                 groups.add(getString(R.string.b_other));
                 break;
+//            case 2:
+//                // 显示对应的fragment
+//                if (mFragmentFocus == null) {
+//                    mFragmentFocus = new FocusFragment();
+//                    transaction.add(R.id.id_content, mFragmentFocus);
+//                } else {
+//                    transaction.show(mFragmentFocus);
+//                }
+//                currentFragment = 2;
+//                // 设置底部Tab图标和文字状态
+//                mImgFocus.setImageResource(R.drawable.tabbar_message_center_selected);
+//                mTextViewFocus.setTextColor(getResources().getColor(R.color.tabbar_text_selected));
+//                // 设置顶部标题
+//                mTextViewTopTitle.setText("博客圈");
+//                mTextViewTopTitle.setClickable(false);
+//                break;
             case 2:
-                // 显示对应的fragment
-                if (mFragmentFocus == null) {
-                    mFragmentFocus = new FocusFragment();
-                    transaction.add(R.id.id_content, mFragmentFocus);
-                } else {
-                    transaction.show(mFragmentFocus);
-                }
-                currentFragment = 2;
-                // 设置底部Tab图标和文字状态
-                mImgFocus.setImageResource(R.drawable.tabbar_message_center_selected);
-                mTextViewFocus.setTextColor(getResources().getColor(R.color.tabbar_text_selected));
-                // 设置顶部标题
-                mTextViewTopTitle.setText("博客圈");
-                mTextViewTopTitle.setClickable(false);
-                break;
-            case 3:
                 // 显示对应的fragment
                 if (mFragmentProfile == null) {
                     mFragmentProfile = new ProfileFragment();
@@ -178,9 +170,9 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
         if (mFragmentBlog != null) {
             transaction.hide(mFragmentBlog);
         }
-        if (mFragmentFocus != null) {
-            transaction.hide(mFragmentFocus);
-        }
+//        if (mFragmentFocus != null) {
+//            transaction.hide(mFragmentFocus);
+//        }
         if (mFragmentProfile != null) {
             transaction.hide(mFragmentProfile);
         }
@@ -189,7 +181,7 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
     private void initEvent() {
         mTabNews.setOnClickListener(this);
         mTabBlog.setOnClickListener(this);
-        mTabFocus.setOnClickListener(this);
+//        mTabFocus.setOnClickListener(this);
         mTabProfile.setOnClickListener(this);
         mTextViewTopTitle.setOnClickListener(this);
     }
@@ -197,17 +189,17 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
     private void initView() {
         mTabNews = (LinearLayout) findViewById(R.id.id_tab_news);
         mTabBlog = (LinearLayout) findViewById(R.id.id_tab_blog);
-        mTabFocus = (LinearLayout) findViewById(R.id.id_tab_focus);
+//        mTabFocus = (LinearLayout) findViewById(R.id.id_tab_focus);
         mTabProfile = (LinearLayout) findViewById(R.id.id_tab_profile);
 
         mImgNews = (ImageButton) findViewById(R.id.id_tab_news_img);
         mImgBlog = (ImageButton) findViewById(R.id.id_tab_blog_img);
-        mImgFocus = (ImageButton) findViewById(R.id.id_tab_focus_img);
+//        mImgFocus = (ImageButton) findViewById(R.id.id_tab_focus_img);
         mImgProfile = (ImageButton) findViewById(R.id.id_tab_profile_img);
 
         mTextViewNews = (TextView) findViewById(R.id.id_tab_news_tv);
         mTextViewBlog = (TextView) findViewById(R.id.id_tab_blog_tv);
-        mTextViewFocus = (TextView) findViewById(R.id.id_tab_focus_tv);
+//        mTextViewFocus = (TextView) findViewById(R.id.id_tab_focus_tv);
         mTextViewProfile = (TextView) findViewById(R.id.id_tab_profile_tv);
 
         mTextViewTopTitle = (TextView) findViewById(R.id.id_topbar_title);
@@ -222,11 +214,11 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
             case R.id.id_tab_blog:
                 setSelect(1);
                 break;
-            case R.id.id_tab_focus:
-                setSelect(2);
-                break;
+//            case R.id.id_tab_focus:
+//                setSelect(2);
+//                break;
             case R.id.id_tab_profile:
-                setSelect(3);
+                setSelect(2);
                 break;
             case R.id.id_topbar_title:
                 showPopwindow(v);
@@ -294,12 +286,12 @@ public class MainActivity extends Activity implements OnClickListener, AdapterVi
     private void resetImgsandText() {
         mImgNews.setImageResource(R.drawable.tabbar_home);
         mImgBlog.setImageResource(R.drawable.tabbar_discover);
-        mImgFocus.setImageResource(R.drawable.tabbar_message_center);
+//        mImgFocus.setImageResource(R.drawable.tabbar_message_center);
         mImgProfile.setImageResource(R.drawable.tabbar_profile);
 
         mTextViewNews.setTextColor(getResources().getColor(R.color.tabbar_text_default));
         mTextViewBlog.setTextColor(getResources().getColor(R.color.tabbar_text_default));
-        mTextViewFocus.setTextColor(getResources().getColor(R.color.tabbar_text_default));
+//        mTextViewFocus.setTextColor(getResources().getColor(R.color.tabbar_text_default));
         mTextViewProfile.setTextColor(getResources().getColor(R.color.tabbar_text_default));
     }
 
