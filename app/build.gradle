@@ -66,5 +66,4 @@ dependencies {
      */
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'cz.msebera.android:httpclient:4.4.1.1'
-    compile files('libs/viewpagerindicator_v1.0.2.jar')
 }

@@ -332,4 +332,40 @@ public class DataUtil {
 //        Log.e("getCategory", categories.toString());
         return categories;
     }
+
+    /**
+     * 解析博主博客列表/分类更多详情
+     * @param html
+     * @return
+     */
+    public static List<BlogItem> getBlog(String html) {
+        List<BlogItem> list = new ArrayList<>();
+        Document doc = Jsoup.parse(html);
+        Elements blogList = doc.getElementsByClass("article_item");
+        for (Element blog : blogList) {
+            BlogItem blogItem = new BlogItem();
+            Element temp = blog.getElementsByClass("article_title").first();
+            String type = temp.select("span").get(0).attr("class");
+            if ("ico ico_type_Original".equals(type))
+                blogItem.setType(0);
+            else if ("ico ico_type_Repost".equals(type))
+                blogItem.setType(1);
+            else
+                blogItem.setType(2);
+            String link = URLUtil.BLOG_ + temp.select("a").attr("href");
+            String title = temp.select("a").first().text();
+            String intro = blog.getElementsByClass("article_description").first().text();
+            String date = blog.getElementsByClass("article_manage").select("span").get(0).text();
+            String readtimes = "阅读" + blog.getElementsByClass("article_manage").select("span").get(1).text();
+            String comments = "评论" + blog.getElementsByClass("article_manage").select("span").get(2).text();
+            blogItem.setTitle(title);
+            blogItem.setLink(link);
+            blogItem.setIntro(intro);
+            blogItem.setDate(date);
+            blogItem.setReadtimes(readtimes);
+            blogItem.setComments(comments);
+            list.add(blogItem);
+        }
+        return list;
+    }
 }

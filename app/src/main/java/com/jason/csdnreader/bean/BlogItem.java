@@ -11,6 +11,11 @@ public class BlogItem implements Serializable {
      */
     private String link;
     /**
+     * 博客类型(原创/转发)
+     * 0-原创 1-转发 2-翻译
+     */
+    private int type;
+    /**
      * 博客标题
      */
     private String title;
@@ -42,6 +47,14 @@ public class BlogItem implements Serializable {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getTitle() {

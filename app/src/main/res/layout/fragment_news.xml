@@ -11,6 +11,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="5dp"
-        android:scrollbars="none"/>
+        android:scrollbars="vertical"/>
 
 </cn.bingoogolapple.refreshlayout.BGARefreshLayout>

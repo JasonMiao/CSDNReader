@@ -15,7 +15,6 @@ public class BloggerBlogFrag extends LazyFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.frag_blogger_blog);
-        TextView textView = (TextView) findViewById(R.id.tv_blogger_blog);
-        textView.setText(getArguments().getString(BloggerShowActivity.USERNAME));
+        getArguments().getString(BloggerShowActivity.USERNAME);
     }
 }
